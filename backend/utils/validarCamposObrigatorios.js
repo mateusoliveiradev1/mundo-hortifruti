@@ -1,13 +1,17 @@
-// utils/validarCamposObrigatorios.js
+export const validarCamposObrigatorios = (campos) => {
+  return (req, res, next) => {
+    const erros = [];
 
-export const validarCamposObrigatorios = (objeto, campos) => {
-  const erros = [];
+    campos.forEach((campo) => {
+      if (!req.body[campo]) {
+        erros.push(`O campo '${campo}' é obrigatório.`);
+      }
+    });
 
-  campos.forEach((campo) => {
-    if (!objeto[campo] || objeto[campo].toString().trim() === "") {
-      erros.push(`O campo '${campo}' é obrigatório.`);
+    if (erros.length > 0) {
+      return res.status(400).json({ erros });
     }
-  });
 
-  return erros;
+    next();
+  };
 };

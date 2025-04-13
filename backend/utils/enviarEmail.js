@@ -1,15 +1,27 @@
-// utils/enviarEmail.js
+import nodemailer from "nodemailer";
 
-export const enviarEmail = async ({ para, assunto, mensagem }) => {
+const enviarEmail = async ({ para, assunto, mensagemHtml }) => {
   try {
-    // Aqui seria a integração real com serviço tipo SendGrid, Mailgun etc.
-    console.log("📧 Simulando envio de email:");
-    console.log("Para:", para);
-    console.log("Assunto:", assunto);
-    console.log("Mensagem:", mensagem);
-    return true;
+    const transporter = nodemailer.createTransport({
+      service: "gmail", // ou 'hotmail', 'outlook', etc.
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
+    });
+
+    const mailOptions = {
+      from: `"Mundo Hortifruti" <${process.env.EMAIL_USER}>`,
+      to: para,
+      subject: assunto,
+      html: mensagemHtml,
+    };
+
+    await transporter.sendMail(mailOptions);
+    console.log("E-mail enviado com sucesso!");
   } catch (erro) {
-    console.error("Erro ao enviar email:", erro);
-    return false;
+    console.error("Erro ao enviar e-mail:", erro);
   }
 };
+
+export default enviarEmail;

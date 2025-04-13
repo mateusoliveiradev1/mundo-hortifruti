@@ -1,18 +1,20 @@
 // middlewares/autenticar.js
 import jwt from "jsonwebtoken";
 
-export function autenticar(req, res, next) {
-  const token = req.headers.authorization?.split(" ")[1];
+const autenticar = (req, res, next) => {
+  const token = req.header("Authorization")?.replace("Bearer ", "");
 
   if (!token) {
-    return res.status(401).json({ erro: "Token não fornecido." });
+    return res.status(401).json({ mensagem: "Token não fornecido" });
   }
 
   try {
-    const payload = jwt.verify(token, process.env.JWT_SECRET);
-    req.usuarioId = payload.id;
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.usuario = decoded;
     next();
   } catch (erro) {
-    return res.status(401).json({ erro: "Token inválido ou expirado." });
+    res.status(401).json({ mensagem: "Token inválido" });
   }
-}
+};
+
+export default autenticar;

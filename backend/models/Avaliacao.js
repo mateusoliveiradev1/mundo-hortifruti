@@ -2,17 +2,26 @@ import mongoose from "mongoose";
 
 const avaliacaoSchema = new mongoose.Schema(
   {
+    estrelas: {
+      type: Number,
+      required: true,
+      min: 1,
+      max: 5,
+    },
     usuario: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Usuario",
       required: true,
     },
-    foto: { type: mongoose.Schema.Types.ObjectId, ref: "Foto", required: true },
-    nota: { type: Number, required: true, min: 1, max: 5 },
+    foto: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Foto",
+      required: true,
+    },
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+  }
 );
 
-const Avaliacao = mongoose.model("Avaliacao", avaliacaoSchema);
-
-export default Avaliacao;
+export default mongoose.model("Avaliacao", avaliacaoSchema);

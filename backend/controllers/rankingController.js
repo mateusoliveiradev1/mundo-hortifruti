@@ -1,49 +1,41 @@
 // controllers/rankingController.js
-
+import Foto from "../models/Foto.js";
 import Avaliacao from "../models/Avaliacao.js";
 
-export const obterRankingLojas = async (req, res) => {
+export const obterRanking = async (req, res) => {
   try {
-    const resultado = await Avaliacao.aggregate([
-      {
-        $lookup: {
-          from: "fotos",
-          localField: "foto",
-          foreignField: "_id",
-          as: "fotoInfo",
-        },
-      },
-      { $unwind: "$fotoInfo" },
-      {
-        $group: {
-          _id: "$fotoInfo.loja",
-          media: { $avg: "$nota" },
-          totalAvaliacoes: { $sum: 1 },
-          totalFotos: { $addToSet: "$foto" },
-        },
-      },
-      {
-        $project: {
-          loja: "$_id",
-          media: { $round: ["$media", 2] },
-          totalAvaliacoes: 1,
-          totalFotos: { $size: "$totalFotos" },
-          _id: 0,
-        },
-      },
-      { $sort: { media: -1 } },
-    ]);
+    // Busca todas as fotos com suas avaliações
+    const fotos = await Foto.find().populate("avaliacoes");
 
-    res.status(200).json({
-      success: true,
-      message: "Ranking das lojas gerado com sucesso",
-      data: resultado,
+    const lojas = {};
+
+    // Agrupa por loja e acumula somas e contagens
+    fotos.forEach((foto) => {
+      const { loja, avaliacoes } = foto;
+
+      if (!lojas[loja]) {
+        lojas[loja] = { totalEstrelas: 0, totalAvaliacoes: 0 };
+      }
+
+      avaliacoes.forEach((avaliacao) => {
+        lojas[loja].totalEstrelas += avaliacao.estrelas;
+        lojas[loja].totalAvaliacoes++;
+      });
     });
+
+    // Calcula média por loja
+    const ranking = Object.entries(lojas)
+      .map(([loja, dados]) => {
+        const media =
+          dados.totalAvaliacoes > 0
+            ? dados.totalEstrelas / dados.totalAvaliacoes
+            : 0;
+        return { loja, media: parseFloat(media.toFixed(2)) };
+      })
+      .sort((a, b) => b.media - a.media);
+
+    res.status(200).json(ranking);
   } catch (erro) {
-    console.error("Erro ao gerar ranking:", erro);
-    res.status(500).json({
-      success: false,
-      message: "Erro ao gerar ranking das lojas",
-    });
+    res.status(500).json({ mensagem: "Erro ao gerar ranking" });
   }
 };

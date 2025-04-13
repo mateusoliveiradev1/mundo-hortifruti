@@ -1,42 +1,16 @@
-// routes/usuarios.routes.js
-
+// routes/usuariosRoutes.js
 import express from "express";
-import jwt from "jsonwebtoken";
-import Usuario from "../models/Usuario.js";
+import {
+  cadastrarUsuario,
+  loginUsuario,
+  editarPerfil,
+} from "../controllers/usuariosController.js";
+import autenticar from "../middlewares/autenticar.js";
 
 const router = express.Router();
 
-// 📌 Login de usuário
-router.post("/login", async (req, res) => {
-  try {
-    const { email, senha } = req.body;
-
-    const usuario = await Usuario.findOne({ email });
-    if (!usuario) {
-      return res.status(404).json({ erro: "Usuário não encontrado." });
-    }
-
-    const senhaValida = await usuario.compararSenha(senha);
-    if (!senhaValida) {
-      return res.status(401).json({ erro: "Senha incorreta." });
-    }
-
-    const token = jwt.sign({ id: usuario._id }, process.env.JWT_SECRET, {
-      expiresIn: "3d",
-    });
-
-    res.json({
-      token,
-      usuario: {
-        id: usuario._id,
-        nome: usuario.nome,
-        email: usuario.email,
-        lojaFavorita: usuario.lojaFavorita,
-      },
-    });
-  } catch (erro) {
-    res.status(500).json({ erro: "Erro ao fazer login." });
-  }
-});
+router.post("/cadastrar", cadastrarUsuario);
+router.post("/login", loginUsuario);
+router.put("/editar", autenticar, editarPerfil);
 
 export default router;

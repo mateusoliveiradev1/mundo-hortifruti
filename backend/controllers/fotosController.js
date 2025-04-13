@@ -1,64 +1,55 @@
 // controllers/fotosController.js
-
 import Foto from "../models/Foto.js";
 
-// Criar nova foto
-export const criarFoto = async (req, res) => {
+// Enviar nova foto
+export const enviarFoto = async (req, res) => {
+  const { legenda, loja, imagemUrl } = req.body;
+
   try {
-    const { url, legenda, loja } = req.body;
-
-    if (!url || !loja) {
-      return res
-        .status(400)
-        .json({ erro: "Campos obrigatórios ausentes (url, loja)." });
-    }
-
     const novaFoto = new Foto({
-      usuario: req.usuarioId, // vem do middleware de autenticação
-      url,
       legenda,
       loja,
+      imagemUrl,
+      usuario: req.usuario.id,
     });
 
     await novaFoto.save();
-    res.status(201).json({
-      mensagem: "Foto enviada com sucesso.",
-      foto: novaFoto,
-    });
+    res.status(201).json(novaFoto);
   } catch (erro) {
-    console.error("Erro ao criar foto:", erro);
-    res.status(500).json({ erro: "Erro ao enviar a foto." });
+    res.status(500).json({ mensagem: "Erro ao enviar foto" });
   }
 };
 
-// Listar todas as fotos
-export const listarFotos = async (req, res) => {
+// Buscar todas as fotos com usuário e avaliações
+export const buscarFotos = async (req, res) => {
   try {
     const fotos = await Foto.find()
-      .populate("usuario", "nome") // traz só o nome do usuário
+      .populate("usuario", "nome")
+      .populate("comentarios")
       .sort({ createdAt: -1 });
-
     res.status(200).json(fotos);
   } catch (erro) {
-    console.error("Erro ao listar fotos:", erro);
-    res.status(500).json({ erro: "Erro ao listar fotos." });
+    res.status(500).json({ mensagem: "Erro ao buscar fotos" });
   }
 };
 
-// Obter uma foto específica por ID
-export const obterFotoPorId = async (req, res) => {
+// Deletar foto (por usuário dono)
+export const deletarFoto = async (req, res) => {
+  const { id } = req.params;
+
   try {
-    const { id } = req.params;
-
-    const foto = await Foto.findById(id).populate("usuario", "nome");
-
+    const foto = await Foto.findById(id);
     if (!foto) {
-      return res.status(404).json({ erro: "Foto não encontrada." });
+      return res.status(404).json({ mensagem: "Foto não encontrada" });
     }
 
-    res.status(200).json(foto);
+    if (foto.usuario.toString() !== req.usuario.id) {
+      return res.status(401).json({ mensagem: "Ação não autorizada" });
+    }
+
+    await foto.deleteOne();
+    res.status(200).json({ mensagem: "Foto deletada com sucesso" });
   } catch (erro) {
-    console.error("Erro ao obter foto:", erro);
-    res.status(500).json({ erro: "Erro ao buscar a foto." });
+    res.status(500).json({ mensagem: "Erro ao deletar foto" });
   }
 };

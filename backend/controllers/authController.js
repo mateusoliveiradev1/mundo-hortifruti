@@ -1,82 +1,61 @@
-// controllers/usuariosController.js
+// controllers/authController.js
+import Usuario from "../models/Usuario.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import Usuario from "../models/Usuario.js";
+import dotenv from "dotenv";
 
-// Cadastro de novo usuário
-export const cadastrarUsuario = async (req, res) => {
+dotenv.config();
+
+// Registrar novo usuário
+export const registrarUsuario = async (req, res) => {
+  const { nome, email, senha } = req.body;
+
   try {
-    const { nome, email, senha } = req.body;
-
     const usuarioExistente = await Usuario.findOne({ email });
     if (usuarioExistente) {
-      return res.status(400).json({ mensagem: "Email já cadastrado." });
+      return res.status(400).json({ mensagem: "Usuário já cadastrado" });
     }
 
-    const senhaCriptografada = await bcrypt.hash(senha, 10);
+    const salt = await bcrypt.genSalt(10);
+    const senhaHash = await bcrypt.hash(senha, salt);
 
-    const novoUsuario = new Usuario({
-      nome,
-      email,
-      senha: senhaCriptografada,
-    });
-
+    const novoUsuario = new Usuario({ nome, email, senha: senhaHash });
     await novoUsuario.save();
 
-    res.status(201).json({ mensagem: "Usuário cadastrado com sucesso." });
+    res.status(201).json({ mensagem: "Usuário registrado com sucesso" });
   } catch (erro) {
-    console.error("Erro ao cadastrar usuário:", erro);
-    res.status(500).json({ mensagem: "Erro ao cadastrar usuário." });
+    res.status(500).json({ mensagem: "Erro ao registrar usuário" });
   }
 };
 
-// Login de usuário
+// Login
 export const loginUsuario = async (req, res) => {
-  try {
-    const { email, senha } = req.body;
+  const { email, senha } = req.body;
 
+  try {
     const usuario = await Usuario.findOne({ email });
     if (!usuario) {
-      return res.status(400).json({ mensagem: "Email ou senha inválidos." });
+      return res.status(404).json({ mensagem: "Usuário não encontrado" });
     }
 
     const senhaValida = await bcrypt.compare(senha, usuario.senha);
     if (!senhaValida) {
-      return res.status(400).json({ mensagem: "Email ou senha inválidos." });
+      return res.status(401).json({ mensagem: "Senha inválida" });
     }
 
     const token = jwt.sign({ id: usuario._id }, process.env.JWT_SECRET, {
-      expiresIn: "7d",
+      expiresIn: "2d",
     });
 
-    res.json({
-      mensagem: "Login realizado com sucesso.",
+    res.status(200).json({
       token,
       usuario: {
         id: usuario._id,
         nome: usuario.nome,
         email: usuario.email,
-        lojaFavorita: usuario.lojaFavorita || "",
       },
     });
   } catch (erro) {
-    console.error("Erro ao fazer login:", erro);
-    res.status(500).json({ mensagem: "Erro ao fazer login." });
-  }
-};
-
-// Buscar perfil do usuário logado
-export const buscarPerfil = async (req, res) => {
-  try {
-    const usuario = await Usuario.findById(req.usuarioId).select("-senha");
-
-    if (!usuario) {
-      return res.status(404).json({ mensagem: "Usuário não encontrado." });
-    }
-
-    res.json(usuario);
-  } catch (erro) {
-    console.error("Erro ao buscar perfil:", erro);
-    res.status(500).json({ mensagem: "Erro ao buscar perfil." });
+    res.status(500).json({ mensagem: "Erro ao fazer login" });
   }
 };

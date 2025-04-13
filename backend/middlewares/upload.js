@@ -1,34 +1,33 @@
 // middlewares/upload.js
-
 import multer from "multer";
-import { v4 as uuidv4 } from "uuid";
 import path from "path";
+import { fileURLToPath } from "url";
 
-// Configura o destino e o nome dos arquivos
+// __dirname replacement in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "uploads/"); // pasta onde as imagens serão salvas
+    cb(null, path.join(__dirname, "../uploads/"));
   },
   filename: (req, file, cb) => {
-    const extensao = path.extname(file.originalname);
-    cb(null, `${uuidv4()}${extensao}`);
+    const ext = path.extname(file.originalname);
+    cb(null, Date.now() + ext);
   },
 });
 
-// Filtra para aceitar apenas imagens
-const fileFilter = (req, file, cb) => {
-  const tiposPermitidos = /jpeg|jpg|png|webp/;
-  const tipo = tiposPermitidos.test(file.mimetype);
-  const ext = tiposPermitidos.test(
-    path.extname(file.originalname).toLowerCase()
-  );
-
-  if (tipo && ext) {
-    return cb(null, true);
-  }
-  cb(new Error("Tipo de arquivo não suportado"));
-};
-
-const upload = multer({ storage, fileFilter });
+const upload = multer({
+  storage,
+  limits: { fileSize: 5 * 1024 * 1024 }, // 5MB
+  fileFilter: (req, file, cb) => {
+    const allowed = ["image/jpeg", "image/png", "image/webp"];
+    if (allowed.includes(file.mimetype)) {
+      cb(null, true);
+    } else {
+      cb(new Error("Apenas arquivos de imagem são permitidos."));
+    }
+  },
+});
 
 export default upload;

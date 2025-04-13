@@ -1,8 +1,9 @@
 import express from "express";
-import { obterRankingLojas } from "../controllers/rankingController.js";
+import { obterRanking } from "../controllers/rankingController.js";
 
 const router = express.Router();
 
-router.get("/", obterRankingLojas);
+// Rota para obter o ranking das lojas
+router.get("/", obterRanking);
 
 export default router;

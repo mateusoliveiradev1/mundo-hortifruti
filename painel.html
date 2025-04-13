@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Painel - Mundo Hortifruti</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+    />
+  </head>
+  <body
+    class="bg-gradient-to-b from-blue-100 via-blue-50 to-white min-h-screen"
+  >
+    <!-- Menu -->
+    <header class="bg-white shadow-md fixed top-0 left-0 w-full z-50">
+      <div
+        class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center"
+      >
+        <a href="index.html" class="text-2xl font-bold text-blue-700"
+          >Mundo Hortifruti</a
+        >
+        <nav class="hidden md:flex space-x-6 items-center">
+          <a
+            href="index.html"
+            class="text-blue-700 hover:text-blue-900 font-medium"
+            >Início</a
+          >
+          <a
+            href="ranking.html"
+            class="text-blue-700 hover:text-blue-900 font-medium"
+            >Ranking</a
+          >
+          <a
+            href="sobre.html"
+            class="text-blue-700 hover:text-blue-900 font-medium"
+            >Sobre</a
+          >
+          <a
+            href="contato.html"
+            class="text-blue-700 hover:text-blue-900 font-medium"
+            >Contato</a
+          >
+          <a
+            href="perfil.html"
+            id="link-perfil"
+            class="hidden text-blue-700 hover:text-blue-900 font-medium"
+            >Perfil</a
+          >
+          <button
+            id="btn-logout"
+            class="hidden text-red-500 hover:text-red-700 font-medium"
+          >
+            Sair
+          </button>
+        </nav>
+        <button
+          id="menu-toggle"
+          class="md:hidden text-blue-700 focus:outline-none"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+          </svg>
+        </button>
+      </div>
+      <div id="mobile-menu" class="md:hidden hidden px-4 pb-4">
+        <a href="index.html" class="block text-blue-700 py-2">Início</a>
+        <a href="ranking.html" class="block text-blue-700 py-2">Ranking</a>
+        <a href="sobre.html" class="block text-blue-700 py-2">Sobre</a>
+        <a href="contato.html" class="block text-blue-700 py-2">Contato</a>
+        <a
+          href="perfil.html"
+          id="mobile-link-perfil"
+          class="hidden block text-blue-700 py-2"
+          >Perfil</a
+        >
+        <button
+          id="mobile-btn-logout"
+          class="hidden text-red-500 w-full text-left py-2"
+        >
+          Sair
+        </button>
+      </div>
+    </header>
+
+    <!-- Conteúdo -->
+    <main class="pt-24 max-w-2xl mx-auto px-4">
+      <h1 class="text-3xl font-bold text-center text-blue-800 mb-8">
+        Painel do Usuário
+      </h1>
+      <form id="form-envio" class="bg-white shadow-md rounded-lg p-6 space-y-4">
+        <div>
+          <label for="foto" class="block text-gray-700 font-medium"
+            >Foto:</label
+          >
+          <input
+            type="file"
+            id="foto"
+            accept="image/*"
+            class="w-full border border-gray-300 rounded-lg px-4 py-2"
+            required
+          />
+        </div>
+        <div>
+          <label for="loja" class="block text-gray-700 font-medium"
+            >Loja:</label
+          >
+          <select
+            id="loja"
+            class="w-full border border-gray-300 rounded-lg px-4 py-2"
+            required
+          >
+            <option value="">Selecione uma loja</option>
+            <option value="Aparecida">Aparecida</option>
+            <option value="Monte Aprazível">Monte Aprazível</option>
+            <option value="Jales">Jales</option>
+            <!-- Adicione as 22 lojas aqui -->
+          </select>
+        </div>
+        <div>
+          <label for="legenda" class="block text-gray-700 font-medium"
+            >Legenda:</label
+          >
+          <textarea
+            id="legenda"
+            rows="3"
+            class="w-full border border-gray-300 rounded-lg px-4 py-2"
+            placeholder="Digite uma legenda..."
+            required
+          ></textarea>
+        </div>
+        <button
+          type="submit"
+          class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 rounded-lg"
+        >
+          Enviar Foto
+        </button>
+      </form>
+    </main>
+
+    <!-- Rodapé -->
+    <footer
+      class="bg-white text-center text-sm text-blue-700 py-6 shadow-inner mt-12"
+    >
+      <p>&copy; 2025 Mundo Hortifruti - Todos os direitos reservados.</p>
+      <p>Desenvolvido com ❤️ para a rede Iquegami Supermercados.</p>
+    </footer>
+
+    <!-- Scripts externos -->
+    <script src="js/menu.js"></script>
+    <script src="js/painel.js"></script>
+  </body>
+</html>

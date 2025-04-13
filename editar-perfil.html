@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Editar Perfil - Mundo Hortifruti</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body
+    class="bg-gradient-to-b from-blue-100 to-blue-200 min-h-screen flex flex-col"
+  >
+    <!-- Navbar -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+      <div
+        class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center"
+      >
+        <div class="flex items-center gap-3">
+          <img
+            src="/assets/logo.png"
+            alt="Logo"
+            class="h-16 w-auto rounded-full shadow-md hover:scale-105 transition duration-300"
+          />
+          <span class="text-2xl font-bold text-blue-600">Mundo Hortifruti</span>
+        </div>
+        <nav class="hidden md:flex gap-6 text-blue-700 font-medium">
+          <a href="/index.html" class="hover:text-blue-500">Início</a>
+          <a href="/ranking.html" class="hover:text-blue-500">Ranking</a>
+          <a href="/perfil.html" class="hover:text-blue-500">Perfil</a>
+          <a href="/logout.html" class="hover:text-blue-500">Sair</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Conteúdo principal -->
+    <main class="flex-grow max-w-2xl mx-auto px-4 py-12">
+      <h1 class="text-3xl font-bold text-center text-blue-700 mb-10">
+        Editar Perfil
+      </h1>
+
+      <form class="bg-white shadow-lg rounded-xl p-8 space-y-6">
+        <div class="flex flex-col items-center gap-4">
+          <img
+            id="avatar-preview"
+            src="/assets/avatar.png"
+            alt="Avatar"
+            class="w-24 h-24 rounded-full shadow-md object-cover"
+          />
+          <label
+            class="cursor-pointer bg-blue-600 text-white py-2 px-4 rounded-xl hover:bg-blue-500 transition font-semibold"
+          >
+            Trocar Avatar
+            <input
+              type="file"
+              accept="image/*"
+              id="avatar-input"
+              class="hidden"
+            />
+          </label>
+          <p class="text-gray-500 text-sm">JPG, PNG até 2MB</p>
+        </div>
+
+        <div>
+          <label for="nome" class="block text-blue-800 font-semibold mb-1"
+            >Nome:</label
+          >
+          <input
+            type="text"
+            id="nome"
+            name="nome"
+            class="w-full border border-blue-300 rounded-xl px-4 py-2 focus:outline-none focus:ring focus:border-blue-500"
+            placeholder="Seu nome completo"
+          />
+        </div>
+
+        <div>
+          <label for="email" class="block text-blue-800 font-semibold mb-1"
+            >E-mail:</label
+          >
+          <input
+            type="email"
+            id="email"
+            name="email"
+            class="w-full border border-blue-300 rounded-xl px-4 py-2 focus:outline-none focus:ring focus:border-blue-500"
+            placeholder="seu@email.com"
+          />
+        </div>
+
+        <div>
+          <label for="senha" class="block text-blue-800 font-semibold mb-1"
+            >Nova Senha:</label
+          >
+          <input
+            type="password"
+            id="senha"
+            name="senha"
+            class="w-full border border-blue-300 rounded-xl px-4 py-2 focus:outline-none focus:ring focus:border-blue-500"
+            placeholder="********"
+          />
+        </div>
+
+        <div class="text-center">
+          <button
+            type="submit"
+            class="bg-blue-600 text-white px-6 py-2 rounded-xl hover:bg-blue-500 transition font-bold"
+          >
+            Salvar Alterações
+          </button>
+        </div>
+      </form>
+    </main>
+
+    <!-- Rodapé -->
+    <footer
+      class="bg-white text-center text-sm text-blue-700 py-6 shadow-inner mt-12"
+    >
+      <p>&copy; 2025 Mundo Hortifruti - Todos os direitos reservados.</p>
+      <p>Desenvolvido com ❤️ para a rede Iquegami Supermercados.</p>
+    </footer>
+
+    <!-- Script separado -->
+    <script src="/js/editar-perfil.js"></script>
+  </body>
+</html>

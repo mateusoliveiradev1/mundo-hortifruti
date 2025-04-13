@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - Mundo Hortifruti</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body
+    class="bg-gradient-to-b from-blue-100 to-blue-200 min-h-screen flex flex-col"
+  >
+    <!-- Navbar -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+      <div
+        class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center"
+      >
+        <div class="flex items-center gap-3">
+          <img
+            src="/assets/logo.png"
+            alt="Logo"
+            class="h-16 w-auto rounded-full shadow-md hover:scale-105 transition duration-300"
+          />
+          <span class="text-2xl font-bold text-blue-600">Mundo Hortifruti</span>
+        </div>
+        <nav class="hidden md:flex gap-6 text-blue-700 font-medium">
+          <a href="/index.html" class="hover:text-blue-500">Início</a>
+          <a href="/ranking.html" class="hover:text-blue-500">Ranking</a>
+          <a href="/login.html" class="text-blue-600 font-bold">Entrar</a>
+          <a href="/cadastro.html" class="hover:text-blue-500">Cadastro</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Conteúdo principal -->
+    <main class="flex-grow flex justify-center items-center px-4 py-12">
+      <div class="w-full max-w-md bg-white p-8 rounded-2xl shadow-lg">
+        <div class="flex flex-col items-center mb-6">
+          <img
+            src="/assets/logo.png"
+            alt="Logo"
+            class="h-20 w-20 rounded-full shadow-md"
+          />
+          <h1 class="text-2xl font-bold text-blue-700 mt-4">Login</h1>
+          <p class="text-gray-500 text-sm">
+            Bem-vindo de volta ao Mundo Hortifruti!
+          </p>
+        </div>
+
+        <form id="login-form" class="space-y-6">
+          <div>
+            <label for="email" class="block text-blue-800 font-semibold mb-1"
+              >E-mail:</label
+            >
+            <input
+              type="email"
+              id="email"
+              name="email"
+              class="w-full border border-blue-300 rounded-xl px-4 py-2 focus:outline-none focus:ring focus:border-blue-500"
+              placeholder="seu@email.com"
+              required
+            />
+          </div>
+
+          <div>
+            <label for="senha" class="block text-blue-800 font-semibold mb-1"
+              >Senha:</label
+            >
+            <input
+              type="password"
+              id="senha"
+              name="senha"
+              class="w-full border border-blue-300 rounded-xl px-4 py-2 focus:outline-none focus:ring focus:border-blue-500"
+              placeholder="********"
+              required
+            />
+          </div>
+
+          <div class="text-center">
+            <button
+              type="submit"
+              class="bg-blue-600 text-white px-6 py-2 rounded-xl hover:bg-blue-500 transition font-bold w-full"
+            >
+              Entrar
+            </button>
+          </div>
+        </form>
+
+        <p class="text-center text-sm text-gray-600 mt-6">
+          Não tem uma conta?
+          <a
+            href="/cadastro.html"
+            class="text-blue-600 hover:underline font-medium"
+            >Cadastre-se</a
+          >
+        </p>
+      </div>
+    </main>
+
+    <!-- Rodapé -->
+    <footer
+      class="bg-white text-center text-sm text-blue-700 py-6 shadow-inner"
+    >
+      <p>&copy; 2025 Mundo Hortifruti - Todos os direitos reservados.</p>
+      <p>Desenvolvido com ❤️ para a rede Iquegami Supermercados.</p>
+    </footer>
+
+    <!-- Script separado -->
+    <script src="/js/login.js"></script>
+  </body>
+</html>

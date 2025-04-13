@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sobre e Contato - Mundo Hortifruti</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script
+      src="https://kit.fontawesome.com/a2e0e6e6b1.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body
+    class="bg-gradient-to-b from-blue-100 to-blue-200 min-h-screen text-gray-800 flex flex-col"
+  >
+    <!-- Navbar Fixa -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+      <div
+        class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center"
+      >
+        <div class="flex items-center gap-3">
+          <img
+            src="/assets/logo.png"
+            alt="Logo"
+            class="h-16 w-auto rounded-full shadow-md transition-transform duration-300 hover:scale-105"
+          />
+          <span class="text-2xl font-bold text-blue-600">Mundo Hortifruti</span>
+        </div>
+        <nav
+          class="hidden md:flex gap-6 text-blue-700 font-medium"
+          id="desktop-menu"
+        >
+          <a href="/index.html" class="hover:text-blue-500">Início</a>
+          <a href="/ranking.html" class="hover:text-blue-500">Ranking</a>
+          <a href="/login.html" class="hover:text-blue-500" id="login-link"
+            >Login</a
+          >
+          <a
+            href="/cadastro.html"
+            class="hover:text-blue-500"
+            id="cadastro-link"
+            >Cadastro</a
+          >
+          <a
+            href="/perfil.html"
+            class="hover:text-blue-500 hidden"
+            id="perfil-link"
+            >Perfil</a
+          >
+        </nav>
+        <button id="menu-toggle" class="md:hidden text-blue-700 text-2xl">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+      <div
+        id="mobile-menu"
+        class="md:hidden hidden flex-col gap-2 bg-white shadow-md rounded-b-xl transition-all duration-300 ease-in-out px-4 pb-4"
+      >
+        <a
+          href="/index.html"
+          class="block py-2 text-blue-700 hover:text-blue-500"
+          >Início</a
+        >
+        <a
+          href="/ranking.html"
+          class="block py-2 text-blue-700 hover:text-blue-500"
+          >Ranking</a
+        >
+        <a
+          href="/login.html"
+          class="block py-2 text-blue-700 hover:text-blue-500"
+          id="login-link-mobile"
+          >Login</a
+        >
+        <a
+          href="/cadastro.html"
+          class="block py-2 text-blue-700 hover:text-blue-500"
+          id="cadastro-link-mobile"
+          >Cadastro</a
+        >
+        <a
+          href="/perfil.html"
+          class="block py-2 text-blue-700 hover:text-blue-500 hidden"
+          id="perfil-link-mobile"
+          >Perfil</a
+        >
+      </div>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main class="flex-grow max-w-5xl mx-auto px-4 py-12 space-y-16">
+      <!-- Sobre -->
+      <section>
+        <h1 class="text-3xl font-bold text-blue-700 mb-6 text-center">
+          Sobre o Mundo Hortifruti
+        </h1>
+        <p class="text-lg text-gray-700 leading-relaxed text-justify">
+          O <strong>Mundo Hortifruti</strong> é o portal de experiências da rede
+          <strong>Iquegami Supermercados</strong>, que conta com 22 lojas
+          espalhadas pelo estado. Criado para aproximar nossos clientes da seção
+          mais fresca e colorida dos nossos mercados, aqui você pode enviar
+          fotos, votar, comentar e acompanhar o ranking das lojas. Nosso
+          objetivo é promover qualidade, saúde e engajamento da nossa comunidade
+          com o universo hortifruti.
+        </p>
+      </section>
+
+      <!-- Contato -->
+      <section>
+        <h2 class="text-3xl font-bold text-blue-700 mb-6 text-center">
+          Fale Conosco
+        </h2>
+        <form
+          class="bg-white rounded-xl shadow-lg p-6 grid grid-cols-1 md:grid-cols-2 gap-6"
+        >
+          <div class="md:col-span-2">
+            <label class="block text-sm font-medium text-blue-600 mb-1"
+              >Nome</label
+            >
+            <input
+              type="text"
+              class="w-full border border-blue-200 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              required
+            />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-blue-600 mb-1"
+              >Email</label
+            >
+            <input
+              type="email"
+              class="w-full border border-blue-200 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              required
+            />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-blue-600 mb-1"
+              >Assunto</label
+            >
+            <input
+              type="text"
+              class="w-full border border-blue-200 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              required
+            />
+          </div>
+          <div class="md:col-span-2">
+            <label class="block text-sm font-medium text-blue-600 mb-1"
+              >Mensagem</label
+            >
+            <textarea
+              rows="5"
+              class="w-full border border-blue-200 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              required
+            ></textarea>
+          </div>
+          <div class="md:col-span-2 flex justify-end">
+            <button
+              type="submit"
+              class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition"
+            >
+              Enviar Mensagem
+            </button>
+          </div>
+        </form>
+      </section>
+    </main>
+
+    <!-- Rodapé -->
+    <footer
+      class="bg-white text-center text-sm text-blue-700 py-6 shadow-inner mt-12"
+    >
+      <p>&copy; 2025 Mundo Hortifruti - Todos os direitos reservados.</p>
+      <p>Desenvolvido com ❤️ para a rede Iquegami Supermercados.</p>
+    </footer>
+
+    <script src="/js/menu.js"></script>
+    <script>
+      const isAuthenticated = true;
+
+      if (isAuthenticated) {
+        document.getElementById("perfil-link")?.classList.remove("hidden");
+        document
+          .getElementById("perfil-link-mobile")
+          ?.classList.remove("hidden");
+        document.getElementById("login-link")?.classList.add("hidden");
+        document.getElementById("login-link-mobile")?.classList.add("hidden");
+        document.getElementById("cadastro-link")?.classList.add("hidden");
+        document
+          .getElementById("cadastro-link-mobile")
+          ?.classList.add("hidden");
+      }
+
+      const toggle = document.getElementById("menu-toggle");
+      const mobileMenu = document.getElementById("mobile-menu");
+
+      toggle.addEventListener("click", () => {
+        mobileMenu.classList.toggle("hidden");
+      });
+    </script>
+  </body>
+</html>

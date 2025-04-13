@@ -1,5 +1,6 @@
 import dotenv from "dotenv";
 dotenv.config(); // TEM QUE VIR PRIMEIRO!
+console.log("🔍 URL Mongo recebida:", process.env.MONGO_URL);
 
 import express from "express";
 import cors from "cors";

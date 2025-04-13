@@ -8,7 +8,7 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
     />
-    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="assets/favicon.ico" type="image/x-icon" />
   </head>
   <body
     class="bg-gradient-to-b from-blue-100 via-blue-50 to-white min-h-screen"
@@ -18,9 +18,16 @@
       <div
         class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center"
       >
-        <a href="index.html" class="text-2xl font-bold text-blue-700"
-          >Mundo Hortifruti</a
-        >
+        <!-- LOGO COM LINK E ANIMAÇÃO -->
+        <a href="index.html" class="flex items-center gap-3">
+          <img
+            src="/assets/logo.png"
+            alt="Logo"
+            class="h-16 w-auto rounded-full shadow-md transition-transform duration-300 hover:scale-105"
+          />
+          <span class="text-2xl font-bold text-blue-600">Mundo Hortifruti</span>
+        </a>
+
         <nav class="hidden md:flex space-x-6 items-center">
           <a
             href="index.html"
@@ -67,6 +74,7 @@
             Sair
           </button>
         </nav>
+
         <button
           id="menu-toggle"
           class="md:hidden text-blue-700 focus:outline-none"
@@ -87,6 +95,7 @@
           </svg>
         </button>
       </div>
+
       <div id="mobile-menu" class="md:hidden hidden px-4 pb-4">
         <a href="index.html" class="block text-blue-700 py-2">Início</a>
         <a href="ranking.html" class="block text-blue-700 py-2">Ranking</a>

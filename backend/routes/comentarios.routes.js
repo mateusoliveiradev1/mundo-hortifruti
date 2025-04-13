@@ -1,5 +1,5 @@
 import express from "express";
-import autenticar from "../middlewares/autenticar.js";
+import { autenticar } from "../middlewares/autenticar.js";
 import Comentario from "../models/Comentario.js";
 
 const router = express.Router();

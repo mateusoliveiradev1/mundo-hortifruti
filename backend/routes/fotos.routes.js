@@ -4,7 +4,7 @@ import {
   listarFotos,
   obterFotoPorId,
 } from "../controllers/fotosController.js";
-import autenticar from "../middlewares/autenticar.js";
+import { autenticar } from "../middlewares/autenticar.js";
 
 const router = express.Router();
 

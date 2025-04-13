@@ -5,7 +5,7 @@ import {
   atualizarPerfil,
   obterPerfil,
 } from "../controllers/perfilController.js";
-import autenticar from "../middlewares/autenticar.js";
+import { autenticar } from "../middlewares/autenticar.js";
 
 const router = express.Router();
 

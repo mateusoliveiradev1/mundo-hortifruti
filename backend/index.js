@@ -16,6 +16,7 @@ import rankingRoutes from "./routes/ranking.routes.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+const MONGO_URI = process.env.MONGO_URL;
 
 dotenv.config();
 const app = express();
@@ -37,7 +38,7 @@ app.use("/api/ranking", rankingRoutes);
 
 // Conexão com MongoDB
 mongoose
-  .connect(process.env.MONGODB_URI, {
+  .connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })

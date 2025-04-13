@@ -1,40 +1,39 @@
-// index.js com conexão e rotas configuradas
-// index.js
-
 import express from "express";
-import dotenv from "dotenv";
 import cors from "cors";
-import conectarDB from "./config/db.js";
+import mongoose from "mongoose";
+import dotenv from "dotenv";
 
-import usuarioRoutes from "./routes/usuarios.routes.js";
-import fotoRoutes from "./routes/fotos.routes.js";
-import avaliacaoRoutes from "./routes/avaliacoes.routes.js";
-import comentarioRoutes from "./routes/comentarios.routes.js";
-import rankingRoutes from "./routes/ranking.routes.js";
-import perfilRoutes from "./routes/perfil.routes.js";
+import userRoutes from "./routes/userRoutes.js";
+import photoRoutes from "./routes/photoRoutes.js";
+import ratingRoutes from "./routes/ratingRoutes.js";
+import commentRoutes from "./routes/commentRoutes.js";
+import rankingRoutes from "./routes/rankingRoutes.js";
 
 dotenv.config();
+
 const app = express();
+const PORT = process.env.PORT || 3000;
 
 // Middlewares
 app.use(cors());
 app.use(express.json());
 
-// Conecta ao MongoDB
-conectarDB();
-
-// Rotas principais
-app.use("/api/usuarios", usuarioRoutes);
-app.use("/api/fotos", fotoRoutes);
-app.use("/api/avaliacoes", avaliacaoRoutes);
-app.use("/api/comentarios", comentarioRoutes);
+// Rotas
+app.use("/api/users", userRoutes);
+app.use("/api/photos", photoRoutes);
+app.use("/api/ratings", ratingRoutes);
+app.use("/api/comments", commentRoutes);
 app.use("/api/ranking", rankingRoutes);
-app.use("/api/perfil", perfilRoutes);
 
-// Porta
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`✅ Servidor rodando na porta ${PORT}`);
-});
-
-export default router;
+// Conexão com o MongoDB
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() => {
+    console.log("Conectado ao MongoDB");
+    app.listen(PORT, () => {
+      console.log(`Servidor rodando na porta ${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.error("Erro ao conectar no MongoDB:", err.message);
+  });

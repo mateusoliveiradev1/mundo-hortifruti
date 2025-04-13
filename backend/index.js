@@ -41,15 +41,13 @@ app.use("/api/ranking", rankingRoutes);
 
 // Conexão com MongoDB
 mongoose
-  .connect(MONGO_URI, {
+  .connect(MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
   .then(() => {
     console.log("✅ MongoDB conectado com sucesso");
-    app.listen(PORT, () =>
-      console.log(`🚀 Servidor rodando na porta ${PORT}`)
-    );
+    app.listen(PORT, () => console.log(`🚀 Servidor rodando na porta ${PORT}`));
   })
   .catch((err) => {
     console.error("❌ Erro ao conectar ao MongoDB:", err.message);

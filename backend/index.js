@@ -1,3 +1,4 @@
+// index.js
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
@@ -5,7 +6,7 @@ import mongoose from "mongoose";
 import path from "path";
 import { fileURLToPath } from "url";
 
-// Routes
+// Importar rotas
 import authRoutes from "./routes/authRoutes.js";
 import usuariosRoutes from "./routes/usuarios.routes.js";
 import fotosRoutes from "./routes/fotos.routes.js";
@@ -14,13 +15,15 @@ import comentariosRoutes from "./routes/comentarios.routes.js";
 import perfilRoutes from "./routes/perfil.routes.js";
 import rankingRoutes from "./routes/ranking.routes.js";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const MONGO_URI = process.env.MONGO_URL;
-
+// Inicialização de variáveis
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
+const MONGO_URI = process.env.MONGO_URL;
+
+// Resolver __dirname em módulos ES
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Middlewares
 app.use(cors());
@@ -38,14 +41,16 @@ app.use("/api/ranking", rankingRoutes);
 
 // Conexão com MongoDB
 mongoose
-  .connect(process.env.MONGO_URI, {
+  .connect(MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
   .then(() => {
-    console.log("MongoDB conectado com sucesso");
-    app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
+    console.log("✅ MongoDB conectado com sucesso");
+    app.listen(PORT, () =>
+      console.log(`🚀 Servidor rodando na porta ${PORT}`)
+    );
   })
   .catch((err) => {
-    console.error("Erro ao conectar ao MongoDB:", err.message);
+    console.error("❌ Erro ao conectar ao MongoDB:", err.message);
   });

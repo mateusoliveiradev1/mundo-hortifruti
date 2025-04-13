@@ -1,4 +1,5 @@
-// Middleware de autenticação com JWTimport jwt from "jsonwebtoken";
+// middlewares/autenticar.js
+import jwt from "jsonwebtoken";
 
 export function autenticar(req, res, next) {
   const token = req.headers.authorization?.split(" ")[1];

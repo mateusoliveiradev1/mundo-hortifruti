@@ -1,3 +1,11 @@
+// routes/usuarios.routes.js
+
+import express from "express";
+import jwt from "jsonwebtoken";
+import Usuario from "../models/Usuario.js";
+
+const router = express.Router();
+
 // 📌 Login de usuário
 router.post("/login", async (req, res) => {
   try {

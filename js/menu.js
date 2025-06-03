@@ -1,7 +1,7 @@
 // menu.js
 
-// Verifica autenticação (pode ser substituído por lógica real com JWT)
-const isAuthenticated = false;
+// Verifica autenticação usando token armazenado (pode ser substituído por lógica real com JWT)
+const isAuthenticated = Boolean(localStorage.getItem("token"));
 
 const perfilDesktop = document.getElementById("perfil-link");
 const perfilMobile = document.getElementById("perfil-link-mobile");

@@ -40,33 +40,55 @@ document.addEventListener("DOMContentLoaded", async () => {
     mobileCadastroLink?.classList.remove("hidden");
   }
 
-  const dadosRanking = [
-    { loja: "Monte Aprazível", mediaEstrelas: 4.7, totalComentarios: 23 },
-    { loja: "Jales", mediaEstrelas: 4.5, totalComentarios: 18 },
-    { loja: "Aparecida", mediaEstrelas: 4.4, totalComentarios: 15 },
-    { loja: "Votuporanga", mediaEstrelas: 4.3, totalComentarios: 13 },
-    { loja: "Fernandópolis", mediaEstrelas: 4.2, totalComentarios: 11 },
-  ];
+  async function carregarRanking() {
+    if (!container) return;
 
-  if (container) {
-    container.innerHTML = dadosRanking
-      .map(
-        (loja, i) => `
-      <div class="bg-gradient-to-r from-blue-100 to-blue-50 border border-blue-200 rounded-2xl shadow-lg p-6 mb-6 hover:scale-[1.02] transition-transform duration-300">
-        <div class="flex items-center justify-between mb-2">
-          <h3 class="text-xl font-bold text-blue-900">${i + 1}º - ${
-          loja.loja
-        }</h3>
-          <span class="text-sm text-blue-700 font-medium bg-blue-100 rounded-full px-3 py-1">⭐ ${
-            loja.mediaEstrelas
-          }</span>
+    try {
+      const supabaseUrl = window.SUPABASE_URL || "";
+      const supabaseKey = window.SUPABASE_KEY || "";
+
+      const response = await fetch(
+        `${supabaseUrl}/rest/v1/ranking?select=*`,
+        {
+          headers: {
+            apikey: supabaseKey,
+            Authorization: `Bearer ${supabaseKey}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Erro ao buscar dados do ranking");
+      }
+
+      const dadosRanking = await response.json();
+
+      container.innerHTML = dadosRanking
+        .sort((a, b) => b.mediaEstrelas - a.mediaEstrelas)
+        .map(
+          (loja, i) => `
+        <div class="bg-gradient-to-r from-blue-100 to-blue-50 border border-blue-200 rounded-2xl shadow-lg p-6 mb-6 hover:scale-[1.02] transition-transform duration-300">
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="text-xl font-bold text-blue-900">${i + 1}º - ${
+              loja.loja
+            }</h3>
+            <span class="text-sm text-blue-700 font-medium bg-blue-100 rounded-full px-3 py-1">⭐ ${
+              loja.mediaEstrelas
+            }</span>
+          </div>
+          <p class="text-gray-600">💬 Comentários: <span class="font-semibold text-blue-700">${
+            loja.totalComentarios
+          }</span></p>
         </div>
-        <p class="text-gray-600">💬 Comentários: <span class="font-semibold text-blue-700">${
-          loja.totalComentarios
-        }</span></p>
-      </div>
-    `
-      )
-      .join("");
+      `
+        )
+        .join("");
+    } catch (err) {
+      console.error(err);
+      container.innerHTML =
+        '<p class="text-red-500">Erro ao carregar ranking.</p>';
+    }
   }
+
+  await carregarRanking();
 });
